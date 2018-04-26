@@ -17,7 +17,8 @@ using namespace std;
 #define PI 3.14159265
 
 //(w funkcji project zrobilem przekazywanie chmury przez wkaznik, a w save przez referencje - w funkcjach standarodwych PCL stosuje sie na ogol ta druga opcje)
-void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_projected, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_projected_rotated,double h,double alfa_deg)//h -parametr 1 - skladowa "z" wektora prostopadlego do plaszczyzny na ktora rzutujemy - okresla kat pod jakim ogladamy obiekt wzdluz jego wysokosci - mozna to potem wyrazic np. procentowo; parametr 2 - kat pod jakim ogladamy obiekt wszerz (podajemy w stopniach)
+//h -parametr 1 - skladowa "z" wektora prostopadlego do plaszczyzny na ktora rzutujemy - okresla kat pod jakim ogladamy obiekt wzdluz jego wysokosci - mozna to potem wyrazic np. procentowo; parametr 2 - kat pod jakim ogladamy obiekt wszerz (podajemy w stopniach)
+void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_projected, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_projected_rotated,double h,double alfa_deg)
 {
 
     //kolejne wartosci tablicy, to kolejne paramaetry plasczyzny, na
