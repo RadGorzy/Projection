@@ -58,13 +58,7 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     proj.setInputCloud (cloud);
     proj.setModelCoefficients (coefficients);
     proj.filter (*cloud_projected);
-    /*
-    std::cerr << "Cloud after projection: " << std::endl;
-    for (size_t i = 0; i < cloud_projected->points.size (); ++i)
-        std::cerr << "    " << cloud_projected->points[i].x << " "
-                  << cloud_projected->points[i].y << " "
-                  << cloud_projected->points[i].z << std::endl;
-    */
+    
     //TRANSFORMACJA z XYZ do XY:
     pcl::PointXYZ min_pt_proj;
     pcl::PointXYZ max_pt_proj;
@@ -87,7 +81,7 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     P1.y=P.y+t*(B*C);
     P1.z=max_pt_proj.z;
 
-
+    
     Eigen::Affine3f transformation;
     //transformation=transformation.;
     Eigen::VectorXf from_line_x, from_line_y, to_line_x, to_line_y;
@@ -158,18 +152,6 @@ void save(pcl::PointCloud<pcl::PointXYZ>& cloud,int w,int k, string path) //w,k 
 
         }
     }
-
-    //wypisywanie:
-    /*
-    for (int i=w-1; i>=0; --i)
-    {
-        for (int j=0; j<k; ++j)
-        {
-            cout<<vec[i][j];
-        }
-        cout<<endl;
-    }
-    */
 
     //zapisywanie do pliku
     ofstream output_file(path);
