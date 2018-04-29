@@ -66,7 +66,7 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     pcl::PointXYZ P, P1; //P1 wyznacza wektor PP1 ktory okreskla os y' , P - punkt srodkowy chmury
     double t;//zmienna pomocnicza
 
-    //P to punkt srodkowy chmury -  ale czy to oznacza tez srodek obrazu na rzutowanej plaszczyznie ??
+    //P to punkt srodkowy chmury
     P.x=min_pt_proj.x+(max_pt_proj.x-min_pt_proj.x)/2;
     P.y=min_pt_proj.y+(max_pt_proj.y-min_pt_proj.y)/2;
     P.z=min_pt_proj.z+(max_pt_proj.z-min_pt_proj.z)/2;
