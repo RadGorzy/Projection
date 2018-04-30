@@ -114,6 +114,7 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     cout<<"Macierz transformacji:" <<endl<<transformation.matrix()<<endl;
     pcl::transformPointCloud(*cloud_projected, *cloud_projected_rotated, transformation.matrix()); //transformacja chmury punktow (bedacej rzutem 2D chmury 3D)
 }
+//zapisuje rzut w postaci tablicy 2D 
 void save(pcl::PointCloud<pcl::PointXYZ>& cloud,int w,int k, string path) //w,k liczba wierszy i kolumn tablicy
 {
 
