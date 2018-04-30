@@ -71,19 +71,19 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     P.y=min_pt_proj.y+(max_pt_proj.y-min_pt_proj.y)/2;
     P.z=min_pt_proj.z+(max_pt_proj.z-min_pt_proj.z)/2;
 
-    if(-A*A-B*B != 0){t=(max_pt_proj.z-P.z)/(-A*A-B*B);}
+    if(-A*A-B*B != 0){t=(max_pt_proj.z-P.z)/(-A*A-B*B);} //wzor wynika z zaleznosci geometrycznych w przestrzeni 3D
     else{
         cout<<"Blad - dziel. przez 0";
         }
     //A i B nie moga wiec byc rownoczesnie rowne 0 -> plaszczyzne rownolegla
     //do podloza  (na ktora robie projekcje)-> nalezy postapic inaczej
+    
+    //rownanie parametryczne prostej okreslajacej os y'
     P1.x=P.x+t*(A*C);
     P1.y=P.y+t*(B*C);
     P1.z=max_pt_proj.z;
 
-    
     Eigen::Affine3f transformation;
-    //transformation=transformation.;
     Eigen::VectorXf from_line_x, from_line_y, to_line_x, to_line_y;
     Eigen::Vector3f vector_y,vector_x, vector_z;// to sa wektroy wyznaczajace kierunek osi ukladu do ktorego transforumjemy chmure
     from_line_x.resize(6); from_line_y.resize(6);
@@ -103,15 +103,13 @@ void project(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,pcl::PointCloud<pcl::Poin
     vector_y.normalize();
     vector_z.normalize();
 
-    from_line_x << 0, 0, 0, 1, 0, 0;
-    from_line_y << 0, 0, 0, 0, 1, 0;
-    //to_line_x << 10, -5, 1, 1, 0, 0;
-    //to_line_y << 10, -5, 1, 0, 1, 0;
-    to_line_x << P.x,P.y,P.z,vector_x[0],vector_x[1],vector_x[2];
-    to_line_y << P.x,P.y,P.z,vector_y[0],vector_y[1],vector_y[2];
+    to_line_x << 0, 0, 0, 1, 0, 0;
+    to_line_y << 0, 0, 0, 0, 1, 0;
+    from_line_x << P.x,P.y,P.z,vector_x[0],vector_x[1],vector_x[2];
+    from_line_y << P.x,P.y,P.z,vector_y[0],vector_y[1],vector_y[2];
 
 
-    if(pcl::transformBetween2CoordinateSystems (to_line_x, to_line_y,from_line_x, from_line_y, transformation)==0)  //tu zamienilem kolejnosc to_line z from_line i jest ok
+    if(pcl::transformBetween2CoordinateSystems (from_line_x, from_line_y, to_line_x, to_line_y, transformation)==0)
         cout<<"nie udalo sie pozyskac macierzy transformacji"<<endl;
     cout<<"Macierz transformacji:" <<endl<<transformation.matrix()<<endl;
     pcl::transformPointCloud(*cloud_projected, *cloud_projected_rotated, transformation.matrix()); //transformacja chmury punktow (bedacej rzutem 2D chmury 3D)
